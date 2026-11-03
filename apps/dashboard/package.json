@@ -1,0 +1,17 @@
+{
+  "name": "@odyssey/dashboard",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "eslint src",
+    "typecheck": "tsc --project tsconfig.json",
+    "test": "node --test",
+    "dev": "node ../../scripts/not-configured.mjs dashboard-dev"
+  },
+  "dependencies": {
+    "@odyssey/api-client": "workspace:*",
+    "@odyssey/shared": "workspace:*",
+    "@odyssey/types": "workspace:*"
+  }
+}

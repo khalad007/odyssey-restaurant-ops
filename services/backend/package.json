@@ -1,0 +1,17 @@
+{
+  "name": "@odyssey/backend",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "eslint src",
+    "typecheck": "tsc --project tsconfig.json",
+    "test": "node --test",
+    "dev": "node ../../scripts/not-configured.mjs backend-dev",
+    "gen:contract": "node ../../scripts/not-configured.mjs OpenAPI-generation"
+  },
+  "dependencies": {
+    "@odyssey/shared": "workspace:*",
+    "@odyssey/types": "workspace:*"
+  }
+}

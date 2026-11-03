@@ -1,0 +1,12 @@
+{
+  "name": "@odyssey/api-client",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "eslint src",
+    "typecheck": "tsc --project tsconfig.json",
+    "test": "node --test",
+    "gen:contract": "node ../../scripts/not-configured.mjs Orval-generation"
+  }
+}

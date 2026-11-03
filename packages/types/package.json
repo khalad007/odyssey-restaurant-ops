@@ -1,0 +1,11 @@
+{
+  "name": "@odyssey/types",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "eslint src",
+    "typecheck": "tsc --project tsconfig.json",
+    "test": "node --test"
+  }
+}
