@@ -1,0 +1,7 @@
+name = "odyssey-backend"
+main = "src/index.ts"
+compatibility_date = "2026-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Local: copy .dev.vars.example to .dev.vars.
+# Deployed Worker: set DATABASE_URL with `wrangler secret put DATABASE_URL`.
