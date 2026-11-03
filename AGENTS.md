@@ -1,5 +1,7 @@
 # Architecture rules
 
+Forbidden: no Next.js, Prisma, tRPC, Supabase, Firebase, or handwritten frontend DTOs.
+
 ## Contract pipeline
 
 - Follow this single source of truth: Drizzle schema → drizzle-zod schemas → Hono routes and OpenAPI document → Orval-generated API client and types.
@@ -8,6 +10,13 @@
 - Generate `packages/api-client` from that document with Orval. The dashboard must consume this client instead of duplicating endpoint definitions or fetch wrappers.
 - Do not handwrite DTOs, duplicate API interfaces, or recreate types already derivable from schemas or generated contracts. Infer types from the authoritative schema or generated client.
 - Keep `packages/types` for shared non-API types and re-exports of derived types. Keep reusable non-API utilities and design tokens in `packages/shared`.
+
+## Backend rules
+
+- Order status changes must go through server-side transition rules, never a loose field update.
+- Always compute order totals on the server.
+- Store money as integer cents.
+- Define the order status enum once in the Drizzle schema and only re-export it elsewhere.
 
 ## Dashboard structure
 
@@ -29,4 +38,3 @@
 - `packages/types`: shared non-API types and derived type re-exports.
 - `packages/api-client`: Orval configuration and generated API client.
 - Use workspace dependencies for internal packages and Turborepo for task orchestration.
-- This initial scaffold contains no application implementation. Do not treat placeholder contract generation as a working pipeline.
