@@ -1,0 +1,18 @@
+{
+  "expo": {
+    "name": "Odyssey Dashboard",
+    "slug": "odyssey-dashboard",
+    "scheme": "odyssey-dashboard",
+    "platforms": [
+      "web"
+    ],
+    "plugins": [
+      "expo-router",
+      "expo-status-bar"
+    ],
+    "web": {
+      "bundler": "metro",
+      "output": "single"
+    }
+  }
+}

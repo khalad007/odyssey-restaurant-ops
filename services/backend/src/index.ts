@@ -1,4 +1,5 @@
 import { createRoute, OpenAPIHono } from '@hono/zod-openapi';
+import { cors } from 'hono/cors';
 import { createDatabase } from './db/client';
 import type { Database } from './services/shared';
 import menuRoutes from './routes/menu';
@@ -7,7 +8,7 @@ import settingsRoutes from './routes/settings';
 import orderRoutes from './routes/orders';
 import dashboardRoutes from './routes/dashboard';
 
-export type Bindings = { DATABASE_URL: string };
+export type Bindings = { DATABASE_URL: string; ALLOWED_ORIGINS?: string };
 
 export type AppEnv = {
   Bindings: Bindings;
@@ -15,6 +16,11 @@ export type AppEnv = {
 };
 
 const app = new OpenAPIHono<AppEnv>();
+
+app.use('*', (c, next) => cors({
+  origin: (c.env.ALLOWED_ORIGINS ?? 'http://localhost:8081,http://localhost:19006')
+    .split(',').map((origin) => origin.trim()).filter(Boolean),
+})(c, next));
 
 app.use('*', async (c, next) => {
   const database = createDatabase(c.env.DATABASE_URL);
