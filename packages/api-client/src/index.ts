@@ -2,3 +2,4 @@
 export { setApiBaseUrl } from './mutator';
 export * from './generated';
 export * from './generated/models';
+export { CreateMenuItemBody as createMenuItemBodySchema, UpdateMenuItemBody as updateMenuItemBodySchema } from './generated-validation/menu';

@@ -1,35 +1,24 @@
-import {
-  getListMenuItemsQueryKey,
-  useListMenuCategories,
-  useListMenuItems,
-  useUpdateMenuItem,
-} from '@odyssey/api-client';
-import { useQueryClient } from '@tanstack/react-query';
+import { useListMenuCategories, useListMenuItems } from '@odyssey/api-client';
+import { useState } from 'react';
 
 export function useMenuItems() {
-  const queryClient = useQueryClient();
+  const [categoryId, setCategoryId] = useState('');
   const categories = useListMenuCategories();
   const items = useListMenuItems();
-  const update = useUpdateMenuItem({
-    mutation: {
-      onSuccess: () => queryClient.invalidateQueries({ queryKey: getListMenuItemsQueryKey() }),
-    },
-  });
-
-  function toggleAvailability(item: NonNullable<typeof items.data>[number]) {
-    update.mutate({ id: item.id, data: { isAvailable: !item.isAvailable } });
-  }
 
   return {
-    items: items.data ?? [],
+    items: (items.data ?? []).filter((item) => !categoryId || item.categoryId === categoryId),
+    totalCount: items.data?.length ?? 0,
+    categories: categories.data ?? [],
+    categoryId,
+    setCategoryId,
+    categoryOptions: [{ value: '', label: 'All categories' }, ...(categories.data ?? []).map((category) => ({ value: category.id, label: category.name }))],
     categoryNames: new Map(categories.data?.map((category) => [category.id, category.name])),
     isLoading: categories.isPending || items.isPending,
     loadError: categories.isError || items.isError
       ? (categories.error ?? items.error)?.message ?? 'Unable to load the menu.'
       : null,
-    updateError: update.isError ? update.error?.message ?? 'Unable to update availability.' : null,
-    isUpdating: update.isPending,
-    toggleAvailability,
+    isRefreshing: categories.isFetching || items.isFetching,
     retry: () => { void Promise.all([categories.refetch(), items.refetch()]); },
   };
 }

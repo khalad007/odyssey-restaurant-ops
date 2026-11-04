@@ -1,0 +1,17 @@
+export const sections = [
+  { id: 'colors', title: 'Colors' },
+  { id: 'typography', title: 'Typography' },
+  { id: 'spacing', title: 'Spacing' },
+  { id: 'radius', title: 'Radius' },
+  { id: 'borders-shadows', title: 'Borders & elevation' },
+  { id: 'layout', title: 'Layout & grid' },
+  { id: 'buttons', title: 'Buttons' },
+  { id: 'forms', title: 'Form controls' },
+  { id: 'badges', title: 'Badges & statuses' },
+  { id: 'surfaces', title: 'Surfaces & cards' },
+  { id: 'data', title: 'Table & list' },
+  { id: 'navigation', title: 'Navigation' },
+  { id: 'overlays', title: 'Modal & drawer' },
+  { id: 'feedback', title: 'Feedback' },
+  { id: 'states', title: 'State patterns' },
+] as const;

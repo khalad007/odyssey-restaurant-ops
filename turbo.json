@@ -1,10 +1,11 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["eslint.config.mjs"],
   "tasks": {
     "dev": { "cache": false, "persistent": true, "env": ["EXPO_PUBLIC_API_URL"] },
     "gen:contract": { "dependsOn": ["^gen:contract"], "cache": false },
     "gen:openapi": { "cache": false, "outputs": ["openapi.json"] },
-    "@odyssey/api-client#gen:contract": { "dependsOn": ["@odyssey/backend#gen:openapi"], "cache": false, "outputs": ["src/generated/**"] },
+    "@odyssey/api-client#gen:contract": { "dependsOn": ["@odyssey/backend#gen:openapi"], "cache": false, "outputs": ["src/generated/**", "src/generated-validation/**"] },
     "lint": { "dependsOn": ["^lint"], "outputs": [] },
     "typecheck": { "dependsOn": ["^typecheck"], "outputs": [] },
     "test": { "dependsOn": ["^test"], "outputs": [], "cache": false, "env": ["TEST_DATABASE_ADMIN_URL"] }

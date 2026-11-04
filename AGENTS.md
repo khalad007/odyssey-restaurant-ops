@@ -20,9 +20,10 @@ Forbidden: no Next.js, Prisma, tRPC, Supabase, Firebase, or handwritten frontend
 
 ## Dashboard structure
 
+- UI primitives live in apps/dashboard/src/ui, are presentational, and use tokens only. New repeated patterns become shared components.
 - Keep pages thin: compose feature components and connect routing, parameters, and feature entry points.
 - Put business logic, data access, and reusable UI outside page files in focused feature modules or shared components.
-- Centralize colors, typography, spacing, radii, and other design tokens in `packages/shared`. Consume those tokens rather than scattering literal values through pages and components.
+- All literal colors and visual sizes, including typography, spacing, radii, borders, shadows, layout dimensions, and motion durations, must live in `packages/shared`. Handwritten UI code must consume those tokens. Generated files must be regenerated rather than edited.
 
 ## Generated artifacts
 
