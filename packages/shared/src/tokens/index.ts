@@ -10,3 +10,4 @@ export * from './orderStatus';
 export * from './controls';
 export * from './feedback';
 export * from './library';
+export * from './dashboard';
