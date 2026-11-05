@@ -79,6 +79,69 @@ export const UpdateCustomerBody = zod.strictObject({
 })
 
 
+export const updateSettingsBodyPrepTimeMinutesMin = 0;
+export const updateSettingsBodyPrepTimeMinutesMax = 240;
+
+export const updateSettingsBodyOpeningHoursMondayOpenRegExp = new RegExp('^([01]\\d|2[0-3]):[0-5]\\d$');
+export const updateSettingsBodyOpeningHoursMondayCloseRegExp = new RegExp('^([01]\\d|2[0-3]):[0-5]\\d$');
+export const updateSettingsBodyOpeningHoursTuesdayOpenRegExp = new RegExp('^([01]\\d|2[0-3]):[0-5]\\d$');
+export const updateSettingsBodyOpeningHoursTuesdayCloseRegExp = new RegExp('^([01]\\d|2[0-3]):[0-5]\\d$');
+export const updateSettingsBodyOpeningHoursWednesdayOpenRegExp = new RegExp('^([01]\\d|2[0-3]):[0-5]\\d$');
+export const updateSettingsBodyOpeningHoursWednesdayCloseRegExp = new RegExp('^([01]\\d|2[0-3]):[0-5]\\d$');
+export const updateSettingsBodyOpeningHoursThursdayOpenRegExp = new RegExp('^([01]\\d|2[0-3]):[0-5]\\d$');
+export const updateSettingsBodyOpeningHoursThursdayCloseRegExp = new RegExp('^([01]\\d|2[0-3]):[0-5]\\d$');
+export const updateSettingsBodyOpeningHoursFridayOpenRegExp = new RegExp('^([01]\\d|2[0-3]):[0-5]\\d$');
+export const updateSettingsBodyOpeningHoursFridayCloseRegExp = new RegExp('^([01]\\d|2[0-3]):[0-5]\\d$');
+export const updateSettingsBodyOpeningHoursSaturdayOpenRegExp = new RegExp('^([01]\\d|2[0-3]):[0-5]\\d$');
+export const updateSettingsBodyOpeningHoursSaturdayCloseRegExp = new RegExp('^([01]\\d|2[0-3]):[0-5]\\d$');
+export const updateSettingsBodyOpeningHoursSundayOpenRegExp = new RegExp('^([01]\\d|2[0-3]):[0-5]\\d$');
+export const updateSettingsBodyOpeningHoursSundayCloseRegExp = new RegExp('^([01]\\d|2[0-3]):[0-5]\\d$');
+
+
+export const UpdateSettingsBody = zod.strictObject({
+  "prepTimeMinutes": zod.int().min(updateSettingsBodyPrepTimeMinutesMin).max(updateSettingsBodyPrepTimeMinutesMax),
+  "autoAcceptOrders": zod.boolean(),
+  "acceptingOrders": zod.boolean(),
+  "openingHours": zod.strictObject({
+  "monday": zod.strictObject({
+  "open": zod.string().regex(updateSettingsBodyOpeningHoursMondayOpenRegExp),
+  "close": zod.string().regex(updateSettingsBodyOpeningHoursMondayCloseRegExp),
+  "closed": zod.boolean().optional()
+}),
+  "tuesday": zod.strictObject({
+  "open": zod.string().regex(updateSettingsBodyOpeningHoursTuesdayOpenRegExp),
+  "close": zod.string().regex(updateSettingsBodyOpeningHoursTuesdayCloseRegExp),
+  "closed": zod.boolean().optional()
+}),
+  "wednesday": zod.strictObject({
+  "open": zod.string().regex(updateSettingsBodyOpeningHoursWednesdayOpenRegExp),
+  "close": zod.string().regex(updateSettingsBodyOpeningHoursWednesdayCloseRegExp),
+  "closed": zod.boolean().optional()
+}),
+  "thursday": zod.strictObject({
+  "open": zod.string().regex(updateSettingsBodyOpeningHoursThursdayOpenRegExp),
+  "close": zod.string().regex(updateSettingsBodyOpeningHoursThursdayCloseRegExp),
+  "closed": zod.boolean().optional()
+}),
+  "friday": zod.strictObject({
+  "open": zod.string().regex(updateSettingsBodyOpeningHoursFridayOpenRegExp),
+  "close": zod.string().regex(updateSettingsBodyOpeningHoursFridayCloseRegExp),
+  "closed": zod.boolean().optional()
+}),
+  "saturday": zod.strictObject({
+  "open": zod.string().regex(updateSettingsBodyOpeningHoursSaturdayOpenRegExp),
+  "close": zod.string().regex(updateSettingsBodyOpeningHoursSaturdayCloseRegExp),
+  "closed": zod.boolean().optional()
+}),
+  "sunday": zod.strictObject({
+  "open": zod.string().regex(updateSettingsBodyOpeningHoursSundayOpenRegExp),
+  "close": zod.string().regex(updateSettingsBodyOpeningHoursSundayCloseRegExp),
+  "closed": zod.boolean().optional()
+})
+})
+})
+
+
 export const createOrderBodyItemsItemQuantityMax = 2147483647;
 
 export const createOrderBodyItemsMax = 100;

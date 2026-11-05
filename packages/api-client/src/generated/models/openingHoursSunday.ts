@@ -8,4 +8,5 @@ export type OpeningHoursSunday = {
   open: string;
   /** @pattern ^([01]\d|2[0-3]):[0-5]\d$ */
   close: string;
+  closed?: boolean;
 };

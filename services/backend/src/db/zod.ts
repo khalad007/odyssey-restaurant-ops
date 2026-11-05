@@ -80,7 +80,7 @@ export const customerDetailSchema = customerSummarySchema.extend({
 }).openapi('CustomerDetail');
 
 const openingTimeSchema = z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/, 'Use HH:mm in 24-hour time.');
-const openingDaySchema = z.object({ open: openingTimeSchema, close: openingTimeSchema }).strict();
+const openingDaySchema = z.object({ open: openingTimeSchema, close: openingTimeSchema, closed: z.boolean().optional() }).strict();
 export const openingHoursSchema = z.object({
   monday: openingDaySchema, tuesday: openingDaySchema, wednesday: openingDaySchema,
   thursday: openingDaySchema, friday: openingDaySchema, saturday: openingDaySchema,
@@ -136,3 +136,4 @@ export const dashboardSummarySchema = selectOrderSchema.pick({}).extend({
   popularItems: popularItemSchema.array().max(5).describe('Top items by quantity, excluding cancelled orders.'),
   ordersPerDay: ordersPerDaySchema.array().length(7).describe('Last seven UTC calendar days, including today and zero-count days.'),
 }).openapi('DashboardSummary');
+

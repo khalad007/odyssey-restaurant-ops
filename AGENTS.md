@@ -20,6 +20,7 @@ Forbidden: no Next.js, Prisma, tRPC, Supabase, Firebase, or handwritten frontend
 
 ## Dashboard structure
 
+- Feature code lives in apps/dashboard/src/features/<name>: page files are thin, data logic is in hooks, and UI comes from src/ui.
 - UI primitives live in apps/dashboard/src/ui, are presentational, and use tokens only. New repeated patterns become shared components.
 - Keep pages thin: compose feature components and connect routing, parameters, and feature entry points.
 - Put business logic, data access, and reusable UI outside page files in focused feature modules or shared components.

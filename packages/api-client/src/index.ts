@@ -5,3 +5,4 @@ export * from './generated/models';
 export { CreateMenuItemBody as createMenuItemBodySchema, UpdateMenuItemBody as updateMenuItemBodySchema } from './generated-validation/menu';
 export { CreateOrderBody as createOrderBodySchema } from './generated-validation/menu';
 export { CreateCustomerBody as createCustomerBodySchema } from './generated-validation/menu';
+export { UpdateSettingsBody as updateSettingsBodySchema } from './generated-validation/menu';
