@@ -4,4 +4,3 @@ export { Sidebar } from './Sidebar';
 export { PageHeader } from './PageHeader';
 export type { PageHeaderProps } from './PageHeader';
 export { PageContainer } from './PageContainer';
-export { PlaceholderPage } from './PlaceholderPage';

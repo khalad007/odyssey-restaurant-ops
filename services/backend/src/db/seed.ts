@@ -137,7 +137,6 @@ try {
     await tx.insert(orders).values(orderRows);
     await tx.insert(orderItems).values(lineRows);
   });
-  console.log(`Seeded 5 categories, 25 menu items (2 unavailable), 15 customers, 1 settings row, 40 orders, and ${lineRows.length} order items.`);
 } finally {
   await client.end();
 }

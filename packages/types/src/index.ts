@@ -1,2 +1,2 @@
-// Workspace placeholder; implementation will follow the architecture in AGENTS.md.
+// Shared non-API types and derived type re-exports belong in this package.
 export {};

@@ -8,6 +8,7 @@ Forbidden: no Next.js, Prisma, tRPC, Supabase, Firebase, or handwritten frontend
 - Define database entities in `services/backend` with Drizzle. Derive validation schemas with drizzle-zod; derive request and response contracts from those schemas.
 - Register Hono endpoints with their validation schemas and OpenAPI metadata. Generate the OpenAPI document from the registered routes.
 - Generate `packages/api-client` from that document with Orval. The dashboard must consume this client instead of duplicating endpoint definitions or fetch wrappers.
+- `pnpm gen:contract` runs backend OpenAPI generation before Orval, producing React Query hooks, API types, and runtime form validators in `packages/api-client`.
 - Do not handwrite DTOs, duplicate API interfaces, or recreate types already derivable from schemas or generated contracts. Infer types from the authoritative schema or generated client.
 - Keep `packages/types` for shared non-API types and re-exports of derived types. Keep reusable non-API utilities and design tokens in `packages/shared`.
 

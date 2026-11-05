@@ -1,8 +1,6 @@
-import { getListOrdersQueryKey, useListOrders, useListCustomers, useTransitionOrder } from '@odyssey/api-client';
-import { useQueryClient } from '@tanstack/react-query';
+import { useListOrders, useListCustomers } from '@odyssey/api-client';
 import { useEffect, useState } from 'react';
 import { motion } from '@odyssey/shared';
-import { useToast } from '../../ui';
 import { useOrderFilters } from './useOrderFilters';
 
 export function useOrders() {
@@ -17,15 +15,8 @@ export function useOrders() {
   const dateError = (filters.filters.dateFrom && !dateFrom) || (filters.filters.dateTo && !dateTo) ? 'Use YYYY-MM-DD for dates.' : dateFrom && dateTo && dateFrom > dateTo ? 'From date must precede to date.' : undefined;
   const query = useListOrders({ ...filters.filters, dateFrom, dateTo, search: debounced || undefined, page, pageSize: 20 }, { query: { enabled: !dateError } });
   const customers = useListCustomers();
-  const client = useQueryClient();
-  const { showToast } = useToast();
-  const transition = useTransitionOrder({ mutation: {
-    onSuccess: async () => { await client.invalidateQueries({ queryKey: getListOrdersQueryKey() }); showToast({ tone: 'success', message: 'Order updated.' }); },
-    onError: (error) => showToast({ tone: 'error', message: error.message ?? 'Unable to update order.' }),
-  } });
   return { query, customers, dateError, filters: filters.filters, search, setSearch, page, setPage,
     setFilters: (next: Parameters<typeof filters.set>[0]) => { filters.set(next); setPage(1); },
     clear: () => { filters.clear(); setSearch(''); setDebounced(''); setPage(1); },
-    transition,
   };
 }
