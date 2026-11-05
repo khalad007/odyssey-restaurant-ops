@@ -9,6 +9,7 @@ import { Text } from '../Text';
 export type TableColumn<Data> = { key: string; header: string; cell: (row: Data) => ReactNode; sortable?: boolean; flex?: number };
 export type TableSort = { key: string; direction: 'asc' | 'desc' };
 export type TableProps<Data> = {
+  onRowPress?: (row: Data) => void;
   label: string; columns: readonly TableColumn<Data>[]; rows: readonly Data[]; rowKey: (row: Data) => string;
   sort?: TableSort; onSort?: (sort: TableSort) => void; emptyMessage?: string;
 };
@@ -22,9 +23,9 @@ function Header<Data>({ column, sort, onSort }: { column: TableColumn<Data>; sor
     onPress={() => onSort({ key: column.key, direction: active && sort.direction === 'asc' ? 'desc' : 'asc' })}>{column.header}</Button> :
     <Text variant="label">{column.header}</Text>;
 }
-function DataRow<Data>({ row, columns }: { row: Data; columns: readonly TableColumn<Data>[] }) {
+function DataRow<Data>({ row, columns, onRowPress }: { row: Data; columns: readonly TableColumn<Data>[]; onRowPress?: (row: Data) => void }) {
   const [hovered, setHovered] = useState(false);
-  return <View role="row" onPointerEnter={() => setHovered(true)} onPointerLeave={() => setHovered(false)} style={{
+  return <View role="row" onPointerUp={(event) => { const target = event.target as unknown as HTMLElement; if (!target.closest?.('button, a, input, [role="button"]')) onRowPress?.(row); }} onPointerEnter={() => setHovered(true)} onPointerLeave={() => setHovered(false)} style={{
     flexDirection: 'row', backgroundColor: hovered ? feedback.hover : colors.surface,
     borderTopWidth: borderWidths.thin, borderTopColor: colors.border,
   }}>{columns.map((column) => <View key={column.key} role="cell" style={{ flex: column.flex ?? feedback.table.columnFlex, padding: spacing[3], justifyContent: 'center' }}>
@@ -32,7 +33,7 @@ function DataRow<Data>({ row, columns }: { row: Data; columns: readonly TableCol
   </View>)}</View>;
 }
 /** Sorting is controlled: headers emit changes; callers provide ordered rows. */
-export function Table<Data>({ label, columns, rows, rowKey, sort, onSort, emptyMessage = 'No rows to show.' }: TableProps<Data>) {
+export function Table<Data>({ label, columns, rows, rowKey, sort, onSort, onRowPress, emptyMessage = 'No rows to show.' }: TableProps<Data>) {
   const { width } = useWindowDimensions();
   if (width < layout.breakpoints.md) return <Stack>
     {onSort ? <Row style={{ flexWrap: 'wrap' }}>{columns.filter((column) => column.sortable).map((column) => <Header key={column.key} column={column} sort={sort} onSort={onSort} />)}</Row> : null}
@@ -50,7 +51,8 @@ export function Table<Data>({ label, columns, rows, rowKey, sort, onSort, emptyM
         <Header column={column} sort={sort} onSort={onSort} />
       </View>)}
     </View></View>
-    <View role="rowgroup">{rows.map((row) => <DataRow key={rowKey(row)} row={row} columns={columns} />)}</View>
+    <View role="rowgroup">{rows.map((row) => <DataRow key={rowKey(row)} row={row} columns={columns} onRowPress={onRowPress} />)}</View>
     {!rows.length ? <View role="row"><View role="cell" style={{ padding: spacing[4] }}><Text color="textMuted">{emptyMessage}</Text></View></View> : null}
   </View>;
 }
+

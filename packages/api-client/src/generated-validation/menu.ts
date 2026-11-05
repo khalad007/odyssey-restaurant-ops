@@ -55,3 +55,25 @@ export const UpdateMenuItemBody = zod.strictObject({
   "priceCents": zod.int().min(updateMenuItemBodyPriceCentsMin).max(updateMenuItemBodyPriceCentsMax).optional(),
   "isAvailable": zod.boolean().optional()
 })
+
+
+export const createOrderBodyItemsItemQuantityMax = 2147483647;
+
+export const createOrderBodyItemsMax = 100;
+
+
+
+export const CreateOrderBody = zod.strictObject({
+  "customerId": zod.uuid(),
+  "orderType": zod.enum(['dine_in', 'pickup', 'delivery']),
+  "notes": zod.string().nullish(),
+  "items": zod.array(zod.strictObject({
+  "menuItemId": zod.uuid(),
+  "quantity": zod.int().min(1).max(createOrderBodyItemsItemQuantityMax)
+})).min(1).max(createOrderBodyItemsMax)
+})
+
+
+export const TransitionOrderBody = zod.strictObject({
+  "action": zod.enum(['confirm', 'start_preparing', 'mark_ready', 'complete', 'cancel'])
+})
