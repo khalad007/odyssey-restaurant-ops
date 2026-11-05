@@ -4,7 +4,7 @@ export default defineConfig({
   menuValidation: {
     input: {
       target: '../../services/backend/openapi.json',
-      filters: { mode: 'include', tags: ['Menu', 'Orders'] },
+      filters: { mode: 'include', tags: ['Menu', 'Orders', 'Customers'] },
     },
     output: {
       target: './src/generated-validation/menu.ts',
@@ -41,4 +41,5 @@ export default defineConfig({
     },
   },
 });
+
 

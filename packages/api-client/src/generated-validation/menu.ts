@@ -57,6 +57,28 @@ export const UpdateMenuItemBody = zod.strictObject({
 })
 
 
+
+
+
+
+export const CreateCustomerBody = zod.strictObject({
+  "name": zod.string().min(1),
+  "phone": zod.string().min(1).nullish(),
+  "email": zod.email().nullish()
+})
+
+
+
+
+
+
+export const UpdateCustomerBody = zod.strictObject({
+  "name": zod.string().min(1).optional(),
+  "phone": zod.string().min(1).nullish(),
+  "email": zod.email().nullish()
+})
+
+
 export const createOrderBodyItemsItemQuantityMax = 2147483647;
 
 export const createOrderBodyItemsMax = 100;
